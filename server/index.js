@@ -10,7 +10,13 @@ const express = require('express'),
   cors = require('cors');
 
 // Database Setup
-mongoose.connect(config.database);
+mongoose.connect(config.database, function(error){
+  if(error) {
+    console.log(error);
+    return;
+  }
+  console.log("connection successful");
+});
 
 // for testing
 app.use(cors());
