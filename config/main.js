@@ -4,7 +4,7 @@ module.exports = {
   // Database connection information
   database: 'mongodb+srv://admin:Abc123@cluster0-majso.mongodb.net/test?ssl=true&retryWrites=true&w=majority',
   // Setting port for server
-  port: 3000,
+  port: 5000,
   // Configuring Mailgun API for sending transactional email
   mailgun_priv_key: 'mailgun private key here',
   // Configuring Mailgun domain for sending transactional email
