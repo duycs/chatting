@@ -39,7 +39,7 @@
               "in": "body",
               "description": "User register",
               "schema": {
-                "$ref": "#/definitions/User"
+                "$ref": "#/definitions/userRegisterViewModel"
               }
             }
           ],
@@ -161,39 +161,37 @@
             "200": {
               "description": "success",
               "schema": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          }
-        }
-       
-      },
-
-      "/chat": {
-        "parameters": [
-          {
-            "name": "user",
-            "in": "path",
-            "required": true,
-            "description": "View messages to and from authenticated user",
-            "type": "string"
-          }
-        ],
-        "get": {
-          "tags": [
-            "Users"
-          ],
-          "summary": "View messages to and from authenticated user",
-          "responses": {
-            "200": {
-              "description": "success",
-              "schema": {
                 "$ref": "#/definitions/UserDto"
               }
             }
           }
         }
        
+      },
+      "/chat/new/{recipient}": {
+        "parameters": [
+          {
+            "name": "recipient",
+            "in": "path",
+            "required": true,
+            "description": "conversation recipient",
+            "type": "string"
+          }
+        ],
+        "post": {
+            "tags": [
+              "conversation"
+            ],
+            "summary": "Start new conversation",
+            "responses": {
+              "200": {
+                "description": "success",
+                "schema": {
+                  "$ref": "#/definitions/UserDto"
+                }
+              }
+            }
+          }
       },
       "/chat/{conversationId}": {
         "parameters": [
@@ -233,34 +231,32 @@
               }
             }
           }
-       
       },
-      "/new/{recipient}": {
+      "/chat": {
         "parameters": [
           {
-            "name": "recipient",
+            "name": "user",
             "in": "path",
             "required": true,
-            "description": "conversation recipient",
+            "description": "View messages to and from authenticated user",
             "type": "string"
           }
         ],
-        "post": {
-            "tags": [
-              "conversation"
-            ],
-            "summary": "Start new conversation",
-            "responses": {
-              "200": {
-                "description": "success",
-                "schema": {
-                  "$ref": "#/definitions/UserDto"
-                }
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "View messages to and from authenticated user",
+          "responses": {
+            "200": {
+              "description": "success",
+              "schema": {
+                "$ref": "#/definitions/UserDto"
               }
             }
           }
+        }
       }
-
     },
     "definitions": {
       "userRegisterViewModel": {
@@ -290,8 +286,7 @@
         ],
         "properties": {
           "email": {
-            "type": "string",
-            "uniqueItems": true
+            "type": "string"
           },
           "password":{
             "type": "string"
