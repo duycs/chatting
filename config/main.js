@@ -16,6 +16,7 @@ module.exports = {
   // Stripe API key
   stripeApiKey: 'stripe api key goes here',
   // necessary in order to run tests in parallel of the main app
+  
   test_port: 5000,
   test_db: 'chatting-test',
   test_env: 'test'
