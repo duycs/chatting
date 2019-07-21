@@ -6,8 +6,18 @@ const express = require('express'),
   router = require('./router'),
   mongoose = require('mongoose'),
   socketEvents = require('./socketEvents'),
-  config = require('./config/main');
-  cors = require('cors');
+  config = require('./config/main'),
+  cors = require('cors'),
+  swaggerUi = require('swagger-ui-express'),
+  swaggerDocument = require('./swagger.json');
+  //swaggerDocument = require('./swaggerDocument');
+  
+  //Following
+  //https://blog.slatepeak.com/creating-a-real-time-chat-api-with-node-express-socket-io-and-mongodb/
+
+  //TODO: write swagger json doc
+  //https://github.com/GenFirst/swagger-to-existing-nodejs-project/blob/master/backend/swagger.json
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Database Setup
 mongoose.connect(config.database, function(error){
@@ -52,8 +62,13 @@ app.use((req, res, next) => {
   next();
 });
 
+
 // Import routes to be served
 router(app);
+
+//TODO: how to auto generate swagger doc
+//http://www.acuriousanimal.com/2018/10/20/express-swagger-doc.html
+//swaggerDocument(app);
 
 // necessary for testing
 module.exports = server;

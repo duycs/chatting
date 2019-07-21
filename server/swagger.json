@@ -1,0 +1,334 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Chatting APIs",
+      "description": "Chatting APIs",
+      "license": {
+        "name": "DuyCS, ThangNM",
+        "url": ""
+      }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "Chatting",
+        "description": "API for users in the system"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/auth/register": {
+        "post": {
+          "tags": [
+            "register"
+          ],
+          "description": "Registration route",
+          "parameters": [
+            {
+              "name": "userRegisterViewModel",
+              "in": "body",
+              "description": "User register",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "New user is created",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        }
+      },
+      "/auth/login": {
+        "post": {
+          "tags": [
+            "login"
+          ],
+          "description": "Registration route",
+          "parameters": [
+            {
+              "name": "userLoginViewModel",
+              "in": "body",
+              "description": "User register",
+              "schema": {
+                "$ref": "#/definitions/userLoginViewModel"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "success",
+              "schema": {
+                "$ref": "#/definitions/UserDto"
+              }
+            }
+          }
+        }
+      },
+      "/auth/forgot-password": {
+        "post": {
+          "tags": [
+            "login"
+          ],
+          "description": "Registration route",
+          "parameters": [
+            {
+              "name": "userForgotPaswordViewModel",
+              "in": "body",
+              "description": "User forgot password",
+              "schema": {
+                "$ref": "#/definitions/userForgotPaswordViewModel"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "success",
+              "schema": {
+                "$ref": "#/definitions/UserDto"
+              }
+            }
+          }
+        }
+      },
+      "/auth/reset-password/{token}": {
+        "post": {
+          "tags": [
+            "reset-password/"
+          ],
+          "description": "Password reset route (change password using token)",
+          "parameters": [
+            {
+                "name": "token",
+                "in": "path",
+                "required": true,
+                "description": "token of user that we want to find",
+                "type": "string"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "success",
+              "schema": {
+                "$ref": "#/definitions/"
+              }
+            }
+          }
+        }
+      },
+      "/user/{userId}": {
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "id of user that we want to find",
+            "type": "string"
+          }
+        ],
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Get user by id",
+          "responses": {
+            "200": {
+              "description": "success",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        }
+       
+      },
+
+      "/chat": {
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "required": true,
+            "description": "View messages to and from authenticated user",
+            "type": "string"
+          }
+        ],
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "View messages to and from authenticated user",
+          "responses": {
+            "200": {
+              "description": "success",
+              "schema": {
+                "$ref": "#/definitions/UserDto"
+              }
+            }
+          }
+        }
+       
+      },
+      "/chat/{conversationId}": {
+        "parameters": [
+          {
+            "name": "conversationId",
+            "in": "path",
+            "required": true,
+            "description": "conversation by conversationId",
+            "type": "string"
+          }
+        ],
+        "get": {
+          "tags": [
+            "conversation"
+          ],
+          "summary": "Retrieve single conversation",
+          "responses": {
+            "200": {
+              "description": "success",
+              "schema": {
+                "$ref": "#/definitions/UserDto"
+              }
+            }
+          }
+        },
+        "post": {
+            "tags": [
+              "conversation"
+            ],
+            "summary": "Send reply in conversation",
+            "responses": {
+              "200": {
+                "description": "success",
+                "schema": {
+                  "$ref": "#/definitions/UserDto"
+                }
+              }
+            }
+          }
+       
+      },
+      "/new/{recipient}": {
+        "parameters": [
+          {
+            "name": "recipient",
+            "in": "path",
+            "required": true,
+            "description": "conversation recipient",
+            "type": "string"
+          }
+        ],
+        "post": {
+            "tags": [
+              "conversation"
+            ],
+            "summary": "Start new conversation",
+            "responses": {
+              "200": {
+                "description": "success",
+                "schema": {
+                  "$ref": "#/definitions/UserDto"
+                }
+              }
+            }
+          }
+      }
+
+    },
+    "definitions": {
+      "userRegisterViewModel": {
+        "required": [
+          "email"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "password":{
+            "type": "string"
+          }
+        }
+      },
+      "userLoginViewModel": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "password":{
+            "type": "string"
+          }
+        }
+      },
+      "userForgotPaswordViewModel":{
+        "required": [
+            "email"
+        ],
+        "properties": {
+            "email": {
+              "type": "string",
+              "uniqueItems": true
+            }
+          }
+      },
+      "UserDto":{
+        "properties": {
+            "email": {
+              "type": "string",
+              "uniqueItems": true
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "password":{
+              "type": "string"
+            }
+          }
+      },
+      "UsersDto": {
+        "type": "array",
+        "$ref": "#/definitions/User"
+      }
+    }
+  }

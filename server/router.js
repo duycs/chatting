@@ -29,9 +29,26 @@ module.exports = function (app) {
   // Auth Routes
   //= ========================
 
-  // Set auth routes as subgroup/middleware to apiRoutes
   apiRoutes.use('/auth', authRoutes);
 
+/**
+ * @swagger
+ * /register:
+ *    post:
+ *      description: registration route
+ *    produces:
+ *      - application/json
+ *      - application/xml
+ *    parameters:
+ *      - in: path
+ *      email: string
+ *      firstName: string
+ *      lastName: string
+ *      password: tring
+ *    responses:
+ *       200:
+ *         description: OK  
+ */
   // Registration route
   authRoutes.post('/register', AuthenticationController.register);
 
