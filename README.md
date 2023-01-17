@@ -22,6 +22,7 @@
 ### Environment
 - NodeJs
 - MySQL
+- Create database and update connection at ```db.config.js``` file
 
 ### Run Dev
 - ```npm install```
